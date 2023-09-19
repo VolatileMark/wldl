@@ -1,6 +1,7 @@
 #ifndef WLDL_EGL_H
 #define WLDL_EGL_H
 
+#include "wayland-util.h"
 #include <wayland-egl-backend.h>
 
 #define WL_EGL_PLATFORM 1
@@ -45,24 +46,24 @@ void wldl_egl_unload(void);
 
 struct wayland_egl_lib _wldl_egl;
 
-#define DLOPEN(file) do {																							\
-	_wldl_egl.handle = dlopen((file), RTLD_NOW | RTLD_GLOBAL);				  \
-	if (_wldl_egl.handle == NULL) {    																	\
-		return -1;																												\
-	}																																		\
+#define DLOPEN(file) do { \
+	_wldl_egl.handle = dlopen((file), RTLD_NOW | RTLD_GLOBAL); \
+	if (_wldl_egl.handle == NULL) { \
+		return -1; \
+	} \
 } while (0)
 
-#define DLSYM(symb) do {																							\
-	_wldl_egl.symb = dlsym(_wldl_egl.handle, "wl_egl_##symb");  				\
-	if (_wldl_egl.symb == NULL) {																		    \
-		return -1;																												\
-	}																																		\
+#define DLSYM(symb) do { \
+	_wldl_egl.symb = dlsym(_wldl_egl.handle, "wl_egl_##symb"); \
+	if (_wldl_egl.symb == NULL) { \
+		return -1; \
+	} \
 } while (0)
 
-#define DLCLOSE() do {																								\
-	if (_wldl_egl.handle != NULL) {																	    \
-		dlclose(_wldl_egl.handle);																			  \
-	}																																		\
+#define DLCLOSE() do { \
+	if (_wldl_egl.handle != NULL) { \
+		dlclose(_wldl_egl.handle); \
+	} \
 } while (0)
 
 int wldl_egl_load(const char* libpath) {
