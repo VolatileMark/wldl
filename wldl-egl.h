@@ -46,25 +46,25 @@ void wldl_egl_unload(void);
 
 struct wayland_egl_lib _wldl_egl;
 
-#define DLOPEN(file) 																							\
-	do { 																														\
-		_wldl_client.handle = dlopen((file), RTLD_NOW | RTLD_GLOBAL); \
-		if (_wldl_client.handle == NULL)															\
-			return -1; 																									\
-	} while (0)
+#define DLOPEN(file)                                               \
+  do {                                                             \
+    _wldl_client.handle = dlopen((file), RTLD_NOW | RTLD_GLOBAL);  \
+    if (_wldl_client.handle == NULL)                               \
+      return -1;                                                   \
+  } while (0)
 
-#define DLSYM(symb) 																							\
-	do { 																														\
-		_wldl_client.symb = dlsym(_wldl_client.handle, "wl_##symb"); 	\
-		if (_wldl_client.symb == NULL)															 	\
-			return -1; 																									\
-	} while (0)
+#define DLSYM(symb)                                                \
+  do {                                                             \
+    _wldl_client.symb = dlsym(_wldl_client.handle, "wl_##symb");   \
+    if (_wldl_client.symb == NULL)                                 \
+      return -1;                                                   \
+  } while (0)
 
-#define DLCLOSE() 																								\
-	do { 																														\
-		if (_wldl_client.handle != NULL)  														\
-			dlclose(_wldl_client.handle);																\
-	} while (0)
+#define DLCLOSE()                                                  \
+  do {                                                             \
+    if (_wldl_client.handle != NULL)                               \
+      dlclose(_wldl_client.handle);                                \
+  } while (0)
 
 int wldl_egl_load(const char* libpath) {
   libpath = (libpath == NULL) ? "libwayland-egl.so" : libpath;
