@@ -327,7 +327,7 @@ struct wayland_client_lib _wldl_client;
 
 #define DLSYM(symb)                                                \
   do {                                                             \
-    _wldl_client.symb = dlsym(_wldl_client.handle, "wl_##symb");   \
+    _wldl_client.symb = dlsym(_wldl_client.handle, "wl_" #symb);   \
     if (_wldl_client.symb == NULL)                                 \
       return -1;                                                   \
   } while (0)

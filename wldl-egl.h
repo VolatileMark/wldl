@@ -1,7 +1,7 @@
 #ifndef WLDL_EGL_H
 #define WLDL_EGL_H
 
-#include "wayland-util.h"
+#include <wayland-util.h>
 #include <wayland-egl-backend.h>
 
 #define WL_EGL_PLATFORM 1
@@ -55,7 +55,7 @@ struct wayland_egl_lib _wldl_egl;
 
 #define DLSYM(symb)                                                \
   do {                                                             \
-    _wldl_client.symb = dlsym(_wldl_client.handle, "wl_##symb");   \
+    _wldl_client.symb = dlsym(_wldl_client.handle, "wl_" #symb);   \
     if (_wldl_client.symb == NULL)                                 \
       return -1;                                                   \
   } while (0)
